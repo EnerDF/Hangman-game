@@ -1,8 +1,8 @@
 def read():
-    words = []
-    with open("./data.txt", "r", unicode="utf-8") as f:
+    words = [ ]
+    with open("./data.txt", "r", encoding="utf-8") as f:
         for line in f:
-            words.append(list)
+            words.append(line)
     print(words)
 
 def run():
@@ -10,4 +10,4 @@ def run():
 
 
 if __name__ == '__main__':
-    run()
+    read()
