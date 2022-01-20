@@ -12,6 +12,9 @@ def random_word():
     rword= random.choice(words)
     rword= rword.rstrip()
 
+def write():
+    for letter in rword:
+        print(letter.replace(letter, '_'), end=" ")
 
 def run():
     pass
