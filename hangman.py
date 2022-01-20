@@ -2,15 +2,26 @@ import random
 import os
 
 def read():
-    words = [ ]
     with open("./data.txt", "r", encoding="utf-8") as f:
-        for line in f:
-            words.append(line)
-    print(words)
+        global words
+        words = [word.replace('\n','') for word in f]
+    return words
+
+def random_word():
+    global rword
+    rword= random.choice(words)
+    rword= rword.rstrip()
+
 
 def run():
     pass
 
 
 if __name__ == '__main__':
+    print('Bienvenido al juego del ahorcado')
+    print('Tienes que advinar la palabra' )    
     read()
+    random_word()
+    print(' ')
+    letra=input('Ingresa una letra: ')
+
