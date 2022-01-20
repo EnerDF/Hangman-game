@@ -15,6 +15,14 @@ def random_word():
 def write():
     for letter in rword:
         print(letter.replace(letter, '_'), end=" ")
+    
+def comparation():
+    letra=input('Ingresa una letra: ')
+    for letter in rword:
+        if letter == letra:
+            print(letra)
+        else:
+            print('Try again!')
 
 def run():
     pass
@@ -25,6 +33,8 @@ if __name__ == '__main__':
     print('Tienes que advinar la palabra' )    
     read()
     random_word()
+    write()
+    comparation()
     print(' ')
-    letra=input('Ingresa una letra: ')
+
 
