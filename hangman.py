@@ -9,8 +9,11 @@ def read():
 
 def random_word():
     global rword
-    rword= random.choice(words)
-    rword= rword.rstrip()
+    rword = random.choice(words)
+    rword = rword.rstrip()  
+    sentence = rword
+    translate_rword = rword.maketrans('áéíóú', 'aeiou')
+    rword = rword.translate(translate_rword)
     print(rword)
 
 def write():
@@ -18,18 +21,31 @@ def write():
         print(letter.replace(letter, '_'), end=" ")
     
 def wlist():
+    global lrword, drword, dgword
     lrword = list(rword)
-    lrword = list(enumerate(lrword))
+    drword= {i: lrword[i] for i in range(0, len(lrword))}
+    dgword= {i: lrword[i].replace(lrword[i], '_') for i in range(0, len(lrword))}
 
 def comparation():
+    global user_letter
     print(' ')
-    letra=input('Ingresa una letra: ')
-    i = rword.find(letra)
-    for letter in rword:
-        if letter == letra:
-            print(letra)
-        else:
-            print('Try again!')
+    user_letter= input('Ingresa una letra: ')
+    lives = 5
+    for i in drword:
+        if user_letter == drword[i]:
+            dgword.update({i: user_letter})
+    for key, value in dgword.items():
+        print(value, end=" ")
+            
+# def comparation():
+#     print(' ')
+#     letra=input('Ingresa una letra: ')
+#     i = rword.find(letra)
+#     for letter in rword:
+#         if letter == letra:
+#             print(letra)
+#         else:drword[letter]
+#             print('Try again!')
 
 def run():
     pass
@@ -41,8 +57,7 @@ if __name__ == '__main__':
     read()
     random_word()
     write()
-    comparation()
     wlist()
-    print(' ')
+    comparation()
 
 
