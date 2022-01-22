@@ -1,9 +1,5 @@
-from ast import Return
-from collections import UserString
 import random
 from os import system
-from re import I
-import re
 
 def read():
     with open("./data.txt", "r", encoding="utf-8") as f:
@@ -86,7 +82,7 @@ def game():
             for key, value in drword.items():
                 print(value, end=" ")
             print(' ')
-            
+
 if __name__ == '__main__':
     read()
     random_word()
