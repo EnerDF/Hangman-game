@@ -1,5 +1,9 @@
+from ast import Return
+from collections import UserString
 import random
-import os
+from os import system
+from re import I
+import re
 
 def read():
     with open("./data.txt", "r", encoding="utf-8") as f:
@@ -11,14 +15,8 @@ def random_word():
     global rword
     rword = random.choice(words)
     rword = rword.rstrip()  
-    sentence = rword
     translate_rword = rword.maketrans('áéíóú', 'aeiou')
     rword = rword.translate(translate_rword)
-    print(rword)
-
-def write():
-    for letter in rword:
-        print(letter.replace(letter, '_'), end=" ")
     
 def wlist():
     global lrword, drword, dgword
@@ -26,38 +24,71 @@ def wlist():
     drword= {i: lrword[i] for i in range(0, len(lrword))}
     dgword= {i: lrword[i].replace(lrword[i], '_') for i in range(0, len(lrword))}
 
-def comparation():
-    global user_letter
+def igame():
+    system('clear')
+    print('Bienvenido al juego del ahorcado')
+    print('Tienes que advinar la palabra' )
+    for letter in rword:
+        print(letter.replace(letter, '_'), end=" ")
     print(' ')
-    user_letter= input('Ingresa una letra: ')
-    lives = 5
+    print(' ')
+
+def update_write():
+    global i, state, user_letter
     for i in drword:
         if user_letter == drword[i]:
             dgword.update({i: user_letter})
+            for key, value in dgword.items():
+                print(value, end=" ")
+            print(' ') 
+
+def detection():
+    global x, user_letter
+    user_letter= input('Ingresa una letra: ')
+    x = rword.count(user_letter)
+
+def mistake():
+    print('Esta letra no es correcta')
+    print('Te quedan ', str(lives), 'vidas. Intenta de nuevo')
     for key, value in dgword.items():
         print(value, end=" ")
+    print(' ') 
+
+def clear():
+    system('clear')
+
+def mistake():
+    print('Esta letra no es correcta')
+    print('Te quedan ', str(lives), 'vidas. Intenta de nuevo')
+    for key, value in dgword.items():
+        print(value, end=" ")
+    print(' ')  
+
+def game():
+    global lives
+    lives = int(5)
+    igame()
+    while lives != 0:
+        detection()
+        if x > 0:
+            clear()
+            update_write()
+        elif x == 0:
+            lives = lives - 1
+            clear()
+            mistake()
+        if drword == dgword:
+            print('Felicidades, adivinaste la palabra!!!!')
+            break
+        if lives == 0:
+            print('Lo lamento, te quedaste sin vidas, intentalo e nuevo.')
+            print('La respuesta correcta era: ')
+            for key, value in drword.items():
+                print(value, end=" ")
+            print(' ')
             
-# def comparation():
-#     print(' ')
-#     letra=input('Ingresa una letra: ')
-#     i = rword.find(letra)
-#     for letter in rword:
-#         if letter == letra:
-#             print(letra)
-#         else:drword[letter]
-#             print('Try again!')
-
-def run():
-    pass
-
-
 if __name__ == '__main__':
-    print('Bienvenido al juego del ahorcado')
-    print('Tienes que advinar la palabra' )    
     read()
     random_word()
-    write()
     wlist()
-    comparation()
-
-
+    game()
