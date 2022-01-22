@@ -1,5 +1,6 @@
 import random
 from os import system
+import unicodedata
 
 def read():
     with open("./data.txt", "r", encoding="utf-8") as f:
@@ -29,14 +30,15 @@ def igame():
     print(' ')
     print(' ')
 
-def update_write():
+def update():
     global i, state, user_letter
     for i in drword:
         if user_letter == drword[i]:
             dgword.update({i: user_letter})
-            for key, value in dgword.items():
-                print(value, end=" ")
-            print(' ') 
+def write():
+    for key, value in dgword.items():
+        print(value, end=" ")
+    print(' ') 
 
 def detection():
     global x, user_letter
@@ -56,9 +58,7 @@ def clear():
 def mistake():
     print('Esta letra no es correcta')
     print('Te quedan ', str(lives), 'vidas. Intenta de nuevo')
-    for key, value in dgword.items():
-        print(value, end=" ")
-    print(' ')  
+    write()
 
 def game():
     global lives
@@ -68,7 +68,8 @@ def game():
         detection()
         if x > 0:
             clear()
-            update_write()
+            update()
+            write()
         elif x == 0:
             lives = lives - 1
             clear()
